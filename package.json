@@ -1,9 +1,9 @@
 {
   "name": "react-native-file-uploader",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/farmisen/react-native-file-uploader.git"
+    "type": "git",
+    "url": "https://github.com/farmisen/react-native-file-uploader.git"
   },
   "description": "An iOS/Android file upload component for React Native..",
   "author": "Fabrice Armisen <farmisen@gmail.com>",
