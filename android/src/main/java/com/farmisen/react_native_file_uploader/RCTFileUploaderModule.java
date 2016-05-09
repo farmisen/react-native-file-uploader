@@ -1,7 +1,7 @@
 /**
  * Copyright © 2016 Fabrice Armisen <farmisen@gmail.com>
  * This program is free software. It comes without any warranty, to
- * the extent permitted by applicable law. You can redistribute it and/or modify 
+ * the extent permitted by applicable law. You can redistribute it and/or modify
  * it under the terms of the Do What The Fuck You Want To Public License, Version 2,
  * as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
  */
@@ -18,7 +18,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
-
+import com.facebook.common.logging.FLog;
 public class RCTFileUploaderModule extends ReactContextBaseJavaModule implements FileUploadProgressListener {
 
     public static final String URI_FIELD = "uri";
@@ -46,7 +46,10 @@ public class RCTFileUploaderModule extends ReactContextBaseJavaModule implements
         String uri = settings.getString(URI_FIELD);
         String path = null;
         if (uri.startsWith("file:") || uri.startsWith("content:")) {
+          //String selectedImagePath = ImageFilePath.getPath(getApplicationContext(), uri);
+
             path = (Uri.parse(uri)).getPath();
+            FLog.e("Image File Path", ""+path);
         }
         else if ( this.isAbsolutePath(uri)) {
             path = uri;
@@ -83,7 +86,8 @@ public class RCTFileUploaderModule extends ReactContextBaseJavaModule implements
             String fieldName = getStringParam(settings, FIELD_NAME_FIELD, "file");
 
             File file = new File(path);
-            FileInputStream fileInputStream = new FileInputStream(file);
+            //FileInputStream fileInputStream = new FileInputStream(file);
+            FileInputStream fileInputStream =  (FileInputStream)getReactApplicationContext().getContentResolver().openInputStream(Uri.parse(settings.getString(URI_FIELD)));
             int bytesRead, bytesAvailable, bufferSize;
             byte[] buffer;
             int maxBufferSize = MAX_BUFFER_SIZE;
